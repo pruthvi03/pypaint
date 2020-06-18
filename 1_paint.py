@@ -67,13 +67,9 @@ def save_as_png():
 		result += '.png'
 
 	if result:
-		# Check this two line
-		# ________________________________________________
-
 		x = root.winfo_rootx() + my_canvas.winfo_x()
 		y = root.winfo_rooty() + my_canvas.winfo_y()
 		
-		# ________________________________________________
 		x1 = x + my_canvas.winfo_width()
 		y1 = y + my_canvas.winfo_height()
 		ImageGrab.grab().crop( (x,y,x1,y1) ).save(result)
