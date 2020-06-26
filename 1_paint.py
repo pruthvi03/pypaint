@@ -18,19 +18,17 @@ brush_color = "black"
 def paint(e):
 
 	brush_width = '%0.0f' % float(my_slider.get())
-	# brush_color = "green"
-	# brush_types : BUTT, ROUND, PROJECTING
 	brush_type2 = brush_type.get()
 
-	# Starting Position
-	x1 = e.x - 1
-	y1 = e.y - 1
+	global lastx,lasty
+	x, y = e.x,e.y
+	my_canvas.create_line((lastx, lasty, x, y), fill=brush_color, width=brush_width, capstyle=brush_type2, smooth=True)
+	lastx, lasty = x, y
 
-	# Ending Position
-	x2 = e.x + 1
-	y2 = e.y + 1
-
-	my_canvas.create_line(x1, y1, x2, y2, fill=brush_color, width=brush_width, capstyle=brush_type2, smooth=True)
+def activate_paint(e):
+    global lastx, lasty
+    my_canvas.bind('<B1-Motion>', paint)
+    lastx, lasty = e.x, e.y
 
 # Change The Size Of The Brush 
 def change_brush_size(thing):
@@ -83,7 +81,7 @@ def save_as_png():
 my_canvas = Canvas(root, width=600, height=400, bg="white")
 my_canvas.pack(pady=20)
 
-my_canvas.bind('<B1-Motion>', paint)
+my_canvas.bind('<1>', activate_paint)
 
 # Create Brush Option Frame
 brush_options_frame = Frame(root)
